@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -14,7 +15,21 @@ export class DashboardComponent implements OnInit {
   acno1 = ""
   pswd1 = ""
   amount1 = ""
-  constructor(private ds: DataService) { }
+
+  deposit1 = this.fb.group({
+    acno: [``, [Validators.required, Validators.pattern(`[0-9 ]*`)]],
+    pswd: [``, [Validators.required, Validators.pattern(`[a-zA-Z0-9 ]*`)]],
+    amount: [``, [Validators.required, Validators.pattern(`[a-zA-Z ]*`)]]
+  })
+
+  withdraw1 = this.fb.group({
+    acno1: [``, [Validators.required, Validators.pattern(`[0-9 ]*`)]],
+    pswd1: [``, [Validators.required, Validators.pattern(`[a-zA-Z0-9 ]*`)]],
+    amount1: [``, [Validators.required, Validators.pattern(`[0-9 ]*`)]]
+  })
+
+
+  constructor(private ds: DataService,private fb :FormBuilder) { }
 
   ngOnInit(): void {
   }
