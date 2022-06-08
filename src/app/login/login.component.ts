@@ -14,12 +14,12 @@ export class LoginComponent implements OnInit {
   acno = ""
   pswd = ""
 
-  LoginForm=this.fb.group({
+  LoginForm = this.fb.group({
     acno: [``, [Validators.required, Validators.pattern(`[0-9 ]*`)]],
     pswd: [``, [Validators.required, Validators.pattern(`[a-zA-Z0-9 ]*`)]],
   })
-  
-  constructor(private router: Router, private ds:DataService,private fb :FormBuilder) { }
+
+  constructor(private router: Router, private ds: DataService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -38,15 +38,18 @@ export class LoginComponent implements OnInit {
     var acno = this.LoginForm.value.acno
     var pswd = this.LoginForm.value.pswd
 
-    const result = this.ds.login(acno,pswd)
+    if (this.LoginForm.valid) {
+      const result = this.ds.login(acno, pswd)
 
-    if (result) {
-      alert("Login succesful")
-      this.router.navigateByUrl(`dashboard`)
+      if (result) {
+        alert("Login succesful")
+        this.router.navigateByUrl(`dashboard`)
+      }
     }
-    
+    else {
+      alert("invalid Form")
+    }
   }
-
   //---------->template referencing variable<------------
 
   // login(a:any,p:any) {
