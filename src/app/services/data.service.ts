@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
   currentUser:any
+  currentAcno:any
   db: any = {
     1000: { "acno": 1000, "username": "ram", "password": 1000, "balance": 5000,transaction:[] },
     1001: { "acno": 1001, "username": "tom", "password": 1001, "balance": 6000,transaction:[] },
@@ -21,6 +22,9 @@ export class DataService {
      if(localStorage.getItem("currentUser")){
       this.currentUser = JSON.parse(localStorage.getItem("currentUser") || '')
     }
+    if(localStorage.getItem("currentAcno")){
+      this.currentAcno = JSON.parse(localStorage.getItem("currentAcno") || '')
+    }
    }
   
 
@@ -32,6 +36,9 @@ export class DataService {
      if(this.currentUser){
        localStorage.setItem("currentUser",JSON.stringify(this.currentUser))
      }
+     if(this.currentAcno){
+      localStorage.setItem("currentAcno",JSON.stringify(this.currentAcno))
+    }
    }
 
 //login
@@ -43,6 +50,7 @@ export class DataService {
     if (acno in db) {
       if (pswd == db[acno]["password"]) {
         this.currentUser= db[acno]["username"]
+        this.currentAcno = acno
         this.saveDetails()
         return true
       }
@@ -121,5 +129,9 @@ export class DataService {
       alert("User does not exist.....")
       return false
     }
+  }
+  getTrasaction(acno:any){
+    return this.db[acno].transaction
+    
   }
 }
