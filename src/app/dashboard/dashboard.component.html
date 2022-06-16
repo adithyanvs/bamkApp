@@ -5,15 +5,24 @@
 </nav>
 
 <h1 style="color: white">welcome {{user}}</h1>
-<a routerLink="/transaction">view transaction</a>
 <button class="btn btn-warning" (click)="logout()" style="float: right;margin-right: 3%;">Log out</button>
 
+
 <hr>
-<div class="container col-md-12 mt-0">
+
+<h5 style="color: white;">{{lDate|date:'short'}}</h5>
+<a routerLink="/transaction">view transaction</a>
+<button class="btn btn-danger" (click)="deleteAccount()" style="float: right;margin-right: 3%;">Delete</button>
+
+<app-delete-confirm (onCancel)="cancel()" [item]="acno"></app-delete-confirm>
+<!-- <app-animation-demo></app-animation-demo> -->
+
+<hr>
+<div [ngClass]="acno?'c1':''" class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Deposit Form</h3>
+                <h3 appHighlight class="text-center">Deposit Form</h3>
 
             </div>
             <div class="card-body">
@@ -62,11 +71,11 @@
     </div>
 </div>
 
-<div class="container col-md-12 mt-0">
+<div [ngClass]="acno?'c1':''" class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Withdraw Form</h3>
+                <h3 appHighlight class="text-center">Withdraw Form</h3>
 
             </div>
             <div class="card-body">

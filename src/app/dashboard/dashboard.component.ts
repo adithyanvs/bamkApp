@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { empty } from 'rxjs';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -29,8 +30,11 @@ export class DashboardComponent implements OnInit {
     amount: ['', [Validators.required, Validators.pattern('[0-9 ]*')]]
   })
   user: any
+  lDate:any
+  // acno=""
   constructor(private ds: DataService, private fb: FormBuilder,private router:Router) {
     this.user = this.ds.currentUser
+    this.lDate= new Date()
   }
 
   ngOnInit(): void {
@@ -67,5 +71,12 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem("currentUser")
     localStorage.removeItem("currentAcno")
     this.router.navigateByUrl("")
+  }
+  deleteAccount(){
+      this.acno= JSON.parse(localStorage.getItem("currentAcno")||'')
+      
+  }
+  cancel(){
+    this.acno=""
   }
 }
