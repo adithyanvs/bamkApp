@@ -147,32 +147,39 @@ return this.http.post('http://localhost:3000/deposit',
   }
 
   withdraw(acno: any, password: any, amt: any) {
-    var amount = parseInt(amt)
-    let db = this.db
-    if (acno in db) {
-      if (password == db[acno]["password"]) {
-        if (db[acno]["balance"] > amount) {
-          db[acno]["balance"] -= amount
-          db[acno].transaction.push({
-            type: "DEBIT",
-            amount: amount
-          })
-          this.saveDetails()
-          return db[acno]["balance"]
-        } else {
-          alert("Insufficient balance")
-          return false
-        }
 
-      } else {
-        alert("Incorrect password")
-        return false
-      }
-
-    } else {
-      alert("User does not exist.....")
-      return false
+    const data ={
+      acno,password,amt
     }
+    
+    return this.http.post('http://localhost:3000/withdraw',
+     data,this.getOptions())
+    // var amount = parseInt(amt)
+    // let db = this.db
+    // if (acno in db) {
+    //   if (password == db[acno]["password"]) {
+    //     if (db[acno]["balance"] > amount) {
+    //       db[acno]["balance"] -= amount
+    //       db[acno].transaction.push({
+    //         type: "DEBIT",
+    //         amount: amount
+    //       })
+    //       this.saveDetails()
+    //       return db[acno]["balance"]
+    //     } else {
+    //       alert("Insufficient balance")
+    //       return false
+    //     }
+
+    //   } else {
+    //     alert("Incorrect password")
+    //     return false
+    //   }
+
+    // } else {
+    //   alert("User does not exist.....")
+    //   return false
+    // }
   }
   getTrasaction(acno: any) {
     return this.db[acno].transaction

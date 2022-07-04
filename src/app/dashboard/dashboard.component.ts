@@ -69,13 +69,22 @@ export class DashboardComponent implements OnInit {
     var acno = this.withdrawForm.value.acno
     var pswd = this.withdrawForm.value.pswd
     var amount = this.withdrawForm.value.amount
-     const result = this.ds.withdraw(acno, pswd, amount)
-    if (result) {
-      alert(amount + "debitted succesfully and new balance is:" + result)
+    if(this.depositForm.valid){
+      const result = this.ds.withdraw(acno, pswd, amount)
+      .subscribe((result:any) =>{
+        if(result){
+          alert(result.message)
+        }
+      },
+      result =>{
+        alert(result.error.message)
+      })
     }
     else{
-      alert("invalid Form")
+      alert("invalid form")
     }
+     
+  
   }
   logout(){
     localStorage.removeItem("currentUser")
