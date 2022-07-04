@@ -10,40 +10,40 @@ const options ={
 export class DataService {
   currentUser: any
   currentAcno: any
-  db: any = {
-    1000: { "acno": 1000, "username": "Ram", "password": 1000, "balance": 5000, transaction: [] },
-    1001: { "acno": 1001, "username": "Tom", "password": 1001, "balance": 6000, transaction: [] },
-    1002: { "acno": 1002, "username": "Hari", "password": 1002, "balance": 3000, transaction: [] },
-  }
+  // db: any = {
+  //   1000: { "acno": 1000, "username": "Ram", "password": 1000, "balance": 5000, transaction: [] },
+  //   1001: { "acno": 1001, "username": "Tom", "password": 1001, "balance": 6000, transaction: [] },
+  //   1002: { "acno": 1002, "username": "Hari", "password": 1002, "balance": 3000, transaction: [] },
+  // }
   constructor(private http: HttpClient) {
     // this.getDetails()
   }
   //get details from local storage
-  getDetails() {
-    if (localStorage.getItem("database")) {
-      this.db = JSON.parse(localStorage.getItem("database") || '')
-    }
-    if (localStorage.getItem("currentUser")) {
-      this.currentUser = JSON.parse(localStorage.getItem("currentUser") || '')
-    }
-    if (localStorage.getItem("currentAcno")) {
-      this.currentAcno = JSON.parse(localStorage.getItem("currentAcno") || '')
-    }
-  }
+  // getDetails() {
+  //   if (localStorage.getItem("database")) {
+  //     this.db = JSON.parse(localStorage.getItem("database") || '')
+  //   }
+  //   if (localStorage.getItem("currentUser")) {
+  //     this.currentUser = JSON.parse(localStorage.getItem("currentUser") || '')
+  //   }
+  //   if (localStorage.getItem("currentAcno")) {
+  //     this.currentAcno = JSON.parse(localStorage.getItem("currentAcno") || '')
+  //   }
+  // }
 
 
   //save data
-  saveDetails() {
-    if (this.db) {
-      localStorage.setItem("database", JSON.stringify(this.db))
-    }
-    if (this.currentUser) {
-      localStorage.setItem("currentUser", JSON.stringify(this.currentUser))
-    }
-    if (this.currentAcno) {
-      localStorage.setItem("currentAcno", JSON.stringify(this.currentAcno))
-    }
-  }
+  // saveDetails() {
+  //   if (this.db) {
+  //     localStorage.setItem("database", JSON.stringify(this.db))
+  //   }
+  //   if (this.currentUser) {
+  //     localStorage.setItem("currentUser", JSON.stringify(this.currentUser))
+  //   }
+  //   if (this.currentAcno) {
+  //     localStorage.setItem("currentAcno", JSON.stringify(this.currentAcno))
+  //   }
+  // }
 
   //login
   login(acno: any, pswd: any) {
@@ -182,7 +182,10 @@ return this.http.post('http://localhost:3000/deposit',
     // }
   }
   getTrasaction(acno: any) {
-    return this.db[acno].transaction
+    const data ={
+      acno
+    }
+    return this.http.post('http://localhost:3000/transaction',data,this.getOptions())
 
   }
 }

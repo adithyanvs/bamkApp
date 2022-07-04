@@ -7,13 +7,20 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./transaction.component.css']
 })
 export class TransactionComponent implements OnInit {
+  //array to hold all transaction made by give account number
   transactions:any
   acno=JSON.parse(localStorage.getItem("currentAcno")||'')
   constructor(private ds:DataService) { 
-    this.transactions = this.ds.getTrasaction(this.acno)
-    console.log(this.transactions);
-    
-
+    //asynchronous
+    this.ds.getTrasaction(this.acno)
+    .subscribe((result:any) =>{
+      this.transactions = result.transaction
+    },
+    (result:any) =>{
+      alert(result.error.message)
+    }
+      )
+     
   }
 
   ngOnInit(): void {
