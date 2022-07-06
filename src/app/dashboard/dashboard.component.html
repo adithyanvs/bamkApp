@@ -13,8 +13,8 @@
 <h5 style="color: white;">{{lDate|date:'short'}}</h5>
 <a routerLink="/transaction">view transaction</a>
 <button class="btn btn-danger" (click)="deleteAccount()" style="float: right;margin-right: 3%;">Delete</button>
-
-<app-delete-confirm (onCancel)="cancel()" [item]="acno"></app-delete-confirm>
+<!-- child selector -->
+<app-delete-confirm (onDelete)="onDelete($event)" (onCancel)="cancel()" [item]="acno"></app-delete-confirm>
 <!-- <app-animation-demo></app-animation-demo> -->
 
 <hr>

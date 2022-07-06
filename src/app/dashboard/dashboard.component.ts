@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(!localStorage.getItem("currentAcno")){
+    if(!localStorage.getItem("token")){
       alert("Please Login")
       this.router.navigateByUrl("")
     }
@@ -98,5 +98,23 @@ export class DashboardComponent implements OnInit {
   }
   cancel(){
     this.acno=""
+  }
+  onDelete(event:any){
+    this.ds.deleteAcc(event)
+    .subscribe((result:any) => {
+      if(result){
+        alert(result.message)
+        localStorage.removeItem("currentUser")
+        localStorage.removeItem("currentAcno")
+        localStorage.removeItem("token")
+        this.router.navigateByUrl("")
+
+      }
+    },
+    result =>{
+      alert(result.error.message)
+    }
+    )
+
   }
 }

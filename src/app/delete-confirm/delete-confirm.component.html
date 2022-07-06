@@ -1,5 +1,5 @@
 <div *ngIf="item">
     <h6 style="color:white">Are you sue, Do you want to delete this account {{item}} </h6>
-    <button class="btn btn-danger">DELETE</button>&nbsp;
+    <button (click)="delete()" class="btn btn-danger">DELETE</button>&nbsp;
     <button (click)="cancel()" class="btn btn-success">CANCEL</button>
 </div>
